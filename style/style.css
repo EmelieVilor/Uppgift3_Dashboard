@@ -1,0 +1,557 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background: #f1f1e6;
+    --text: #1d2e56;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+}
+
+
+#header {
+    font-family: "Coiny", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text);
+    position: relative;
+    text-transform: uppercase;
+    font-size: 35px;
+}
+
+#headerInput {
+    font-family: "Coiny", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text);
+    position: relative;
+    text-transform: uppercase;
+    font-size: 35px;
+    background: none;
+
+}
+
+h2 {
+    color: var(--text);
+    position: relative;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-top: 25px;
+}
+
+h3 {
+    color: var(--text);
+    position: relative;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+h4 {
+color: var(--text);
+font-size: 12px;
+font-weight: 400;
+letter-spacing: 1px;
+margin-bottom: 10px;
+
+}
+
+p {
+color: var(--text);
+font-size: 12px;
+font-weight: 300;
+}
+
+
+i{
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    z-index: 1;
+    text-align: center;
+}
+
+#background_img {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    object-fit:cover;
+    z-index: 0;
+}
+
+/* ------------------------------- Time & Date ---------------------------------- */
+
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+#time-date{
+    width:280px;
+    height: 30px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.3);
+border-radius: 40px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.3px);
+-webkit-backdrop-filter: blur(4.3px);
+border: 1px solid rgba(255, 255, 255, 0.26);
+}
+
+#time {
+    font-weight: bold;
+}
+
+/* ------------------------------- Cards ---------------------------------- */
+
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.card {
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0.3);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.3px);
+-webkit-backdrop-filter: blur(4.3px);
+border: 1px solid rgba(255, 255, 255, 0.26);
+
+height: 430px;
+width:280px;
+padding: 0;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+.card h2{
+    position: absolute;
+    top: 0;
+    text-align: center;
+
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50px;
+
+}
+
+/* ------------------------------- Links ---------------------------------- */
+
+#links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.linkItem {
+    background-color:  rgba(255, 255, 255, 1);
+    height: 55px;
+    width: 90%;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.linkItem a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.link-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#addLink, #addTitle{
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    border: none;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    letter-spacing: 1.5px;
+    font-weight: 300;
+}
+
+
+#addLink{
+    width: 125px;
+    height: 25px;
+    padding: 10px;
+}
+
+#addTitle{
+    width: 80px;
+    height: 25px;
+    padding: 10px;
+
+}
+
+.removeLink {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    color: var(--text);
+    padding: 5px 10px;
+    background:none;
+    border: none;
+    cursor: pointer;
+
+}
+
+#labels {
+    color: var(--text);
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 100px;
+    position: fixed;
+    bottom: 48px;
+    left: 23px;
+
+}
+
+#inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    margin: auto;
+}
+
+#add_btn {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    background: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    transition: 0.5s;
+    cursor: pointer;
+    text-transform: uppercase;
+
+}
+
+#add_btn i {
+    margin-left: 2px;
+}
+
+#links ::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 30%;
+}
+  /* Track */
+#links ::-webkit-scrollbar-track {
+    background: none; 
+}
+
+  /* Handle */
+#links ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+}
+
+/* ------------------------------- Weather ---------------------------------- */
+
+/* #day1, #day2, #day3, #day4, #day5 {
+    background-color:  rgba(255, 255, 255, 1);
+    height: 62px;
+    width: 90%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.weather-info {
+    text-align: left;
+} */
+
+#weather-container {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.weather-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ------------------------------- News ---------------------------------- */
+
+#news .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+
+.news-div {
+    background-color:  rgba(255, 255, 255, 1);
+    width: 90%;
+    border-radius: 10px;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.news-text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.news-div img {
+    width: 60px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.news-div h3 {
+    margin-bottom: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 11px;
+    width: 100%;
+}
+
+.news-div p {
+    margin-bottom: 10px;
+}
+
+#article_link{
+    text-decoration: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    background: var(--text);
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--background);
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    transition: 0.5s;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 5px 7px;
+    width: 100px;
+}
+
+
+
+#news ::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 30%;
+}
+  /* Track */
+#news ::-webkit-scrollbar-track {
+    background: none; 
+}
+
+  /* Handle */
+#news ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+}
+
+/* ------------------------------- Notes ---------------------------------- */
+
+#writing_notes {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    height: 320px;
+    width: 90%;
+    border: none;
+    background-color:  rgba(255, 255, 255, 1);
+    resize: none;
+    padding: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 300;
+    border-radius: 10px;
+    
+}
+
+#save_btn {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    border-radius: 20px;
+    height: 25px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    margin: auto;
+
+}
+
+#save_btn:hover, #add_btn:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+
+/* ------------------------------- Background button ---------------------------------- */
+
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    margin-top: 25px;
+
+}
+
+#background_randomizer{
+    height: 30px;
+    width:280px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;    
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+
+        /* From https://css.glass */
+background: rgba(255, 255, 255, 0.3);
+border-radius: 40px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.3px);
+-webkit-backdrop-filter: blur(4.3px);
+border: 1px solid rgba(255, 255, 255, 0.26);
+
+transition: 0.5s;
+
+}
+
+#background_randomizer i{
+    font-size: 15px;
+    color: var(--text);
+
+}
+
+#background_randomizer:hover{
+    background: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+
+
+/* ------------------------------- Media Queries ---------------------------------- */
+
+
+@media screen and (max-width: 1300px) {
+    .card-container {
+        display: grid;
+        grid-template-columns: auto auto;
+
+    }
+
+    #background_img {
+        position: fixed;
+        top: 0;
+        left: 0;
+}
+}
+
+@media screen and (max-width: 800px) {
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        
+    }
+
+}
