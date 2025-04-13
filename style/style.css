@@ -83,7 +83,7 @@ main {
 }
 
 #background-img {
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     object-fit:cover;
@@ -563,5 +563,11 @@ transition: 0.5s;
         gap: 30px;
         
     }
+
+    #background_img {
+        position: fixed;
+        top: 0;
+        left: 0;
+}
 
 }

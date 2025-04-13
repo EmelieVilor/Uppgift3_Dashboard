@@ -1,10 +1,20 @@
 const userNotes = document.getElementById("writing_notes");
 const saveNotesBtn = document.getElementById("save_btn");
-const getNotes = localStorage.getItem("text");
+
 
 document.addEventListener("DOMContentLoaded", () => {
-    //get saved header
-    const savedHeading = localStorage.getItem('heading');
+
+    //display time
+    startTime();
+
+    //display weather
+    getWeather();
+
+    //display news
+    getNews();
+
+        //get saved header
+        const savedHeading = localStorage.getItem('heading');
         if (savedHeading) {
             document.getElementById('header').textContent = savedHeading;
         }
@@ -13,17 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
             editHeading(header);
         });
 
-    //display time
-    startTime();
-
-
-    //display weather
-    getWeather();
-
-    //display news
-    getNews();
+    //get saved link-container
+    const container = document.querySelector(".link-container");
+    container.innerHTML = localStorage.getItem("links");
 
     //display saved notes
+    const getNotes = localStorage.getItem("text");
     localStorage.getItem("text");
     userNotes.value = getNotes;
 
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        //change background and save it to local storage
+        //change background and save it
 
         const randomBtn = document.getElementById("background_randomizer");
         const backgroundImg = document.getElementById("background-img");
@@ -85,31 +90,27 @@ function checkTime(i) {
 
 //Edit Heading
 function editHeading() {
-    const header = document.getElementById('header');
-    
-    // Create an input field with the current heading as its value
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.id = 'headerInput';
+    const header = document.getElementById("header");
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = "headerInput";
     input.value = header.textContent;
 
-    // Replace the h1 with the input field
-    header.innerHTML = '';
+    header.innerHTML = "";
     header.appendChild(input);
-
-
+    
     input.focus();
 
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {      
             const newHeading = input.value;
-            if (newHeading) {
-                // Save the new heading to localStorage
-                localStorage.setItem('heading', newHeading);
-                header.textContent = newHeading;  // Update the h1 text
-            } else {
-                header.textContent = "Click to change this header";
-            }
+        if (newHeading) {
+            localStorage.setItem("heading", newHeading);
+            header.textContent = newHeading;
+        } else {
+            header.textContent = "Click to change this header";
+        }
         }
     });
 }
@@ -121,10 +122,9 @@ function addNewLink(){
     const addTitle = document.querySelector("#addTitle").value;
     const container = document.querySelector(".link-container");
 
-    //skapa en div med länk
+    //skapa en diven
     const linkItem = document.createElement("div");
     linkItem.classList.add("linkItem");
-
 
     //skapa länken
     const link = document.createElement("a");
@@ -132,91 +132,106 @@ function addNewLink(){
     link.textContent = addTitle;
     link.target = "_blank";
 
+    const saveLinksToLocalStorage = () => {
+        localStorage.setItem("links", document.querySelector(".link-container").innerHTML);
+    }
+
     const removeLink = document.createElement("button");
     removeLink.innerHTML = "x";
     removeLink.classList.add("removeLink");
+
     removeLink.onclick = function(){
         container.removeChild(linkItem);
+        saveLinksToLocalStorage();
     };
 
     linkItem.appendChild(link);
     linkItem.appendChild(removeLink);
     container.appendChild(linkItem);
+    saveLinksToLocalStorage();
 
     document.getElementById("addTitle").value = "";
     document.getElementById("addLink").value = "";
 }
 
+//Weather API
 
-// weather API
-function getWeather() {
-
+// Get geolocation
+function getPosition(success, error) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok...");
-                }
-                return response.json();
-            })
-            .then((weather) => {
-                const container = document.getElementById("weather-container");
-                container.innerHTML = "";
-
-                const cityName = document.createElement("h3");
-                cityName.classList.add("location");
-                cityName.innerHTML =`<i class="fa-solid fa-location-dot"></i> ${weather.city.name}`;
-                container.appendChild(cityName);
-
-                weather.list.forEach((list, index) => {
-                    // Show only the first weather data for each day
-                    if (index % 8 === 0) {
-
-                        const tempandicon = document.createElement("div");
-                        tempandicon.classList.add("tempandicon");
-
-                        const dateObj = new Date(list.dt_txt);
-                        const weekday = dateObj.toLocaleDateString('en-EN', { weekday: 'long' });
-
-                        const celsius = list.main.temp - 273.15;
-
-                        const weatherDiv = document.createElement("div");
-                        weatherDiv.classList.add("weather-div");
-
-                        const date = document.createElement("h3");
-                        date.textContent = weekday;
-
-                        const temp = document.createElement("p");
-                        temp.textContent = `${Math.floor(celsius)} °C`;
-
-                        const iconCode = list.weather[0].icon; // Fetch icon code from weather data
-                        const weatherIcon = document.createElement("img");
-                        weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}.png`;
-                        
-
-                        tempandicon.appendChild(temp);
-                        tempandicon.appendChild(weatherIcon);
-
-                        weatherDiv.appendChild(date);
-                        weatherDiv.appendChild(tempandicon);
-                
-                        container.appendChild(weatherDiv);
-                    }
-                });
-            })
-            .catch((error) => {
-                console.error("Error fetching weather: ", error);
-            });
-        }, (error) => {
-            console.error("Geolocation error:", error);
-        });
+        navigator.geolocation.getCurrentPosition(success, error);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
+}
+
+// Fetch Weather
+function fetchWeather(lat, lon) {
+
+    const container = document.getElementById("weather-container");
+    container.innerHTML = "";
+
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIkey}`)
+        .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
+        .then((weather) => {
+            const cityName = document.createElement("h3");
+            cityName.classList.add("location");
+            cityName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${weather.city.name}`;
+            container.appendChild(cityName);
+
+            weather.list.forEach((item, index) => {
+                if (index % 8 !== 0) return;
+
+                const tempandicon = document.createElement("div");
+                tempandicon.classList.add("tempandicon");
+
+                const dateObj = new Date(item.dt_txt);
+                const weekday = dateObj.toLocaleDateString('en-EN', { weekday: 'long' });
+
+                const celsius = item.main.temp - 273.15;
+
+                const weatherDiv = document.createElement("div");
+                weatherDiv.classList.add("weather-div");
+
+                const date = document.createElement("h3");
+                date.textContent = weekday;
+
+                const temp = document.createElement("p");
+                temp.textContent = `${Math.floor(celsius)} °C`;
+
+                const iconCode = item.weather[0].icon;
+                const weatherIcon = document.createElement("img");
+                weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
+                tempandicon.appendChild(temp);
+                tempandicon.appendChild(weatherIcon);
+
+                weatherDiv.appendChild(date);
+                weatherDiv.appendChild(tempandicon);
+
+                container.appendChild(weatherDiv);
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching weather:", error);
+        });
+}
+
+// Get location and fetch weather
+function getWeather() {
+    getPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            fetchWeather(lat, lon);
+        },
+        (error) => {
+            console.error("Geolocation error:", error);
+        }
+    );
 }
 
 
@@ -232,7 +247,7 @@ function getNews() {
     })
     .then((news) => {
         const container = document.getElementById("news-container");
-        container.innerHTML = "";  // Clear any existing news content
+        container.innerHTML = "";
 
         news.results.forEach((newsItem) => {
             const article = document.createElement("div");
