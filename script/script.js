@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".link-container");
     container.innerHTML = localStorage.getItem("links");
 
+    const savedLinks = localStorage.getItem("links");
+    if (savedLinks) {
+        document.querySelector(".link-container").innerHTML = savedLinks;
+        addRemoveListeners(); // <- viktigt!
+    }
+
     //display saved notes
     const getNotes = localStorage.getItem("text");
     localStorage.getItem("text");
@@ -152,6 +158,16 @@ function addNewLink(){
 
     document.getElementById("addTitle").value = "";
     document.getElementById("addLink").value = "";
+}
+
+function addRemoveListeners() {
+    const removeButtons = document.querySelectorAll(".removeLink");
+    removeButtons.forEach(button => {
+        button.onclick = function() {
+            button.parentElement.remove();
+            localStorage.setItem("links", document.querySelector(".link-container").innerHTML);
+        };
+    });
 }
 
 //Weather API
