@@ -122,7 +122,7 @@ function addNewLink(){
     const addTitle = document.querySelector("#addTitle").value;
     const container = document.querySelector(".link-container");
 
-    //skapa en diven
+    //skapa diven
     const linkItem = document.createElement("div");
     linkItem.classList.add("linkItem");
 
@@ -308,6 +308,4 @@ function getNews() {
 //Notes to LocalStorage
 saveNotesBtn.addEventListener("click", () => {
     localStorage.setItem("text", userNotes.value);
-    console.log(localStorage.getItem("text"));
-    
     });
